@@ -1,4 +1,4 @@
-package BinaryTree.BinarySearchTrees;
+package BinaryTree.BinarySearchTree;
 
 public class BinaryTreeType {
     protected NodeType root;
