@@ -1,12 +1,12 @@
 package BinaryTree.BinarySearchTree;
 
 public class NodeType {
-    public int value;
+    public Book info;
     public NodeType left;
     public NodeType right;
 
-    public NodeType(int value) {
-        this.value = value;
+    public NodeType(Book info) {
+        this.info = info;
         this.left = null;
         this.right = null;
     }

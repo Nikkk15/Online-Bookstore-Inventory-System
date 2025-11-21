@@ -2,13 +2,13 @@ package BinaryTree.BinarySearchTree;
 
 public class BSearchTreeType extends BinaryTreeType {
 
-    @Override
-    public boolean search(int searchItem) {
+    public boolean search(String searchIsbn) {
         NodeType current = root;
+
         while (current != null) {
-            if (searchItem == current.value)
+            if (searchIsbn.equals(current.info.getIsbn()))
                 return true;
-            else if (searchItem < current.value)
+            else if (searchIsbn.compareTo(current.info.getIsbn()) < 0)
                 current = current.left;
             else
                 current = current.right;
@@ -16,34 +16,39 @@ public class BSearchTreeType extends BinaryTreeType {
         return false;
     }
 
-    @Override
-    public void insert(int insertItem) {
-        NodeType newNode = new NodeType(insertItem);
-        if (root == null) {
-            root = newNode;
-            return;
+    
+    public void insert(Book book) {
+        NodeType newNode = new NodeType(book);            //Create node with desired new insert
+        if (root == null) {                                     //Check if tree is empty, if yes, new node is root
+            root = newNode;           
+            return;                                             
         }
 
-        NodeType current = root;
+        NodeType current = root;                                
         NodeType trailCurrent = null;
 
-        while (current != null) {
-            trailCurrent = current;
-            if (insertItem == current.value) {
+        while (current != null) {                               //Find the correct empty space for new node
+            trailCurrent = current;   
+            
+            String newIsbn = book.getIsbn();
+            String currentIsbn = current.info.getIsbn();
+
+            if (newIsbn.equals(currentIsbn)) {                
                 System.out.println("The item to be inserted is already in the tree -- duplicates are not allowed.");
                 return;
-            } else if (insertItem < current.value) {
+            } else if (newIsbn.compareTo(currentIsbn) < 0) {
                 current = current.left;
             } else {
                 current = current.right;
             }
         }
 
-        if (insertItem < trailCurrent.value)
+
+        if (book.getIsbn().compareTo(trailCurrent.info.getIsbn()) < 0)                    //put node in correct spot, connect tree to new node
             trailCurrent.left = newNode;
         else
-            trailCurrent.right = newNode;
-    }
+            trailCurrent.right = newNode;                       
+    }   
 
     @Override
     public void deleteNode(int deleteItem) {
