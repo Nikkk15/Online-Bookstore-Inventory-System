@@ -54,14 +54,14 @@ public class BinaryTreeType {
     private void inorder(NodeType p) {
         if (p != null) {
             inorder(p.left);
-            System.out.print(p.value + " ");
+            System.out.print(p.info + " ");
             inorder(p.right);
         }
     }
 
     private void preorder(NodeType p) {
         if (p != null) {
-            System.out.print(p.value + " ");
+            System.out.print(p.info + " ");
             preorder(p.left);
             preorder(p.right);
         }
@@ -71,7 +71,7 @@ public class BinaryTreeType {
         if (p != null) {
             postorder(p.left);
             postorder(p.right);
-            System.out.print(p.value + " ");
+            System.out.print(p.info + " ");
         }
     }
 

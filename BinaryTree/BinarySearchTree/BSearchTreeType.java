@@ -50,21 +50,22 @@ public class BSearchTreeType extends BinaryTreeType {
             trailCurrent.right = newNode;                       
     }   
 
-    @Override
-    public void deleteNode(int deleteItem) {
-        root = deleteFromTree(root, deleteItem);
+    public void deleteNode(String isbn) {
+        root = deleteFromTree(root, isbn);
     }
 
-    private NodeType deleteFromTree(NodeType p, int deleteItem) {
+    private NodeType deleteFromTree(NodeType p, String isbn) {
         if (p == null) {
             System.out.println("The item to be deleted is not in the tree.");
             return null;
         }
 
-        if (deleteItem < p.value) {
-            p.left = deleteFromTree(p.left, deleteItem);
-        } else if (deleteItem > p.value) {
-            p.right = deleteFromTree(p.right, deleteItem);
+        String currentIsbn = p.info.getIsbn();
+
+        if (isbn.compareTo(currentIsbn) < 0) {
+            p.left = deleteFromTree(p.left, isbn);
+        } else if (isbn.compareTo(currentIsbn) > 0) {
+            p.right = deleteFromTree(p.right, isbn);
         } else { // found node
             if (p.left == null)
                 return p.right;
@@ -75,8 +76,8 @@ public class BSearchTreeType extends BinaryTreeType {
             NodeType temp = p.left;
             while (temp.right != null)
                 temp = temp.right;
-            p.value = temp.value;
-            p.left = deleteFromTree(p.left, temp.value);
+            p.info = temp.info;
+            p.left = deleteFromTree(p.left, temp.info.getIsbn());
         }
 
         return p;
