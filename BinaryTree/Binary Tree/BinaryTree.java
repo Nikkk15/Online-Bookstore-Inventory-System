@@ -133,24 +133,24 @@ public class BinaryTree
     }
 
     // Main method to test all methods
-    public static void main(String[] args)
-    {
-        BinaryTree tree = new BinaryTree();
+    // public static void main(String[] args)
+    // {
+    //     BinaryTree tree = new BinaryTree();
 
-        System.out.println("Is the tree empty? " + tree.isEmpty());
+    //     System.out.println("Is the tree empty? " + tree.isEmpty());
 
-        // Build a sample tree
-        tree.buildSampleTree();
+    //     // Build a sample tree
+    //     tree.buildSampleTree();
 
-        System.out.println("\nAfter building the tree:");
-        System.out.println("Is the tree empty? " + tree.isEmpty());
-        System.out.println("Number of nodes: " + tree.countNodes());
-        System.out.println("Number of leaves: " + tree.countLeaves());
-        System.out.println("Height of the tree: " + tree.height());
+    //     System.out.println("\nAfter building the tree:");
+    //     System.out.println("Is the tree empty? " + tree.isEmpty());
+    //     System.out.println("Number of nodes: " + tree.countNodes());
+    //     System.out.println("Number of leaves: " + tree.countLeaves());
+    //     System.out.println("Height of the tree: " + tree.height());
 
-        // Test traversals
-        tree.preorder();
-        tree.inorder();
-        tree.postorder();
-    }
+    //     // Test traversals
+    //     tree.preorder();
+    //     tree.inorder();
+    //     tree.postorder();
+    // }
 }

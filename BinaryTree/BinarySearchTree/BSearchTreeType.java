@@ -2,18 +2,18 @@ package BinaryTree.BinarySearchTree;
 
 public class BSearchTreeType extends BinaryTreeType {
 
-    public boolean search(String searchIsbn) {
+    public String search(String searchIsbn) {
         NodeType current = root;
 
         while (current != null) {
             if (searchIsbn.equals(current.info.getIsbn()))
-                return true;
+                return "Book found!:\n" + current.info.toString();
             else if (searchIsbn.compareTo(current.info.getIsbn()) < 0)
                 current = current.left;
             else
                 current = current.right;
         }
-        return false;
+        return "Book not found.";
     }
 
     
@@ -79,7 +79,7 @@ public class BSearchTreeType extends BinaryTreeType {
             p.info = temp.info;
             p.left = deleteFromTree(p.left, temp.info.getIsbn());
         }
-
+    
         return p;
     }
 
@@ -97,5 +97,28 @@ public class BSearchTreeType extends BinaryTreeType {
 
         swaptrees(p.left);
         swaptrees(p.right);
+    }
+
+    public void printAllBooks() {
+        printInOrder(root);
+    }
+
+    private void printInOrder(NodeType p){
+        if (p != null) {
+            printInOrder(p.left);
+            System.out.println(p.info.toString() + "\n");
+            printInOrder(p.right);
+        }
+    }
+
+    public void getPopularGenres() {
+
+    }
+
+    private void popularGenres(NodeType p){
+        if (p != null){
+            popularGenres(p.left);
+            
+        }
     }
 }

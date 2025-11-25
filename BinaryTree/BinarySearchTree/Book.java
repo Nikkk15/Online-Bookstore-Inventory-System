@@ -27,11 +27,11 @@ public class Book{
 
     @Override
     public String toString() {
-        return "ISBN: " + isbn +
-               ", Title: " + title +
+        return "Title: " + title +
                ", Author: " + author +
                ", Genre: " + genre +
-               ", Quantity: " + quantity;
+               ", Quantity: " + quantity +
+               ", ISBN: " + isbn;
     }
 
 }
