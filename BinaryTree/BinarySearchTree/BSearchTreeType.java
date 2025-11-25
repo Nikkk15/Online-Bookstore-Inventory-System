@@ -112,13 +112,32 @@ public class BSearchTreeType extends BinaryTreeType {
     }
 
     public void getPopularGenres() {
-
+        
     }
 
     private void popularGenres(NodeType p){
-        if (p != null){
-            popularGenres(p.left);
-            
+
+        int totalNodes = treeNodeCount();
+
+        if (totalNodes == 0) {
+            System.out.println("No books in the inventory.");
+            return;
         }
+
+        String[] allGenres = new String[totalNodes];
+        int[] index = new int[1];   // index[0] will track how many we filled
+
+        fillGenresArray(root, allGenres, index);
+        int n = index[0];
+        
+    }
+
+    private void fillGenresArray(NodeType node, String[] allGenres, int[] index) {
+    if (node == null) 
+        return;
+
+    fillGenresArray(node.left, allGenres, index);
+    allGenres[index[0]++] = node.info.getGenre();
+    fillGenresArray(node.right, allGenres, index);
     }
 }
