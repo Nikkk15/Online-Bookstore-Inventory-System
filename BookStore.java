@@ -11,13 +11,14 @@ public class BookStore {
 
         int choice = 0;
 
-        while (choice != 4) {
+        while (choice != 5) {
 
             System.out.println("\n===== BOOKSTORE MENU =====");
             System.out.println("1. Add Book");
             System.out.println("2. Search Book by ISBN");
             System.out.println("3. Display All Books");
-            System.out.println("4. Exit");
+            System.out.println("4. Analyze Sales");
+            System.out.println("5. Exit");
             System.out.print("Enter your choice (Example: 1): ");
 
             choice = input.nextInt();
@@ -63,11 +64,16 @@ public class BookStore {
 
             } else if (choice == 4) {
 
-                System.out.println("\nExiting program...");
+                System.out.println("\n=== ALL BOOK SALES ===");
+                Library.printAllSales();
 
+            } else if (choice == 5) {
+
+                System.out.println("\nExiting program...");
+                
             } else {
 
-                System.out.println("\nInvalid choice. Please enter 1, 2, 3, or 4.");
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, 4, or 5.");
             }
         }
 

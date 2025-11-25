@@ -140,4 +140,17 @@ public class BSearchTreeType extends BinaryTreeType {
     allGenres[index[0]++] = node.info.getGenre();
     fillGenresArray(node.right, allGenres, index);
     }
+
+    public void printAllSales() {
+        printSalesInOrder(root);
+    }
+
+    private void printSalesInOrder(NodeType p){
+        if (p != null) {
+            printSalesInOrder(p.left);
+            System.out.println(p.info.getTitle() + ": " + p.info.getSales() + " sales.\n");
+            printSalesInOrder(p.right);
+        }
+    }
+    
 }
