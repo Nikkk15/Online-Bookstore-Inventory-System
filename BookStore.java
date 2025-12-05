@@ -1,17 +1,18 @@
 import BinaryTree.BinarySearchTree.BSearchTreeType;
 import BinaryTree.BinarySearchTree.Book;
+import java.util.Scanner;
 
 public class BookStore {
     public static void main(String[] args) {
 
-        java.util.Scanner input = new java.util.Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         BSearchTreeType Library = new BSearchTreeType();
 
         loadSampleBooks(Library);
 
         int choice = 0;
 
-        while (choice != 6) {
+        while (choice != 7) {
 
             System.out.println("\n===== BOOKSTORE MENU =====");
             System.out.println("1. Add Book");
@@ -19,11 +20,12 @@ public class BookStore {
             System.out.println("3. Display All Books");
             System.out.println("4. Analyze Sales");
             System.out.println("5. Delete Book by ISBN");
-            System.out.println("6. Exit");
+            System.out.println("6. Analyze Stock (Low Quantity)");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice (Example: 1): ");
 
             choice = input.nextInt();
-            input.nextLine(); 
+            input.nextLine();
 
             if (choice == 1) {
 
@@ -79,11 +81,16 @@ public class BookStore {
 
             } else if (choice == 6) {
 
+                System.out.println("\n=== LOW STOCK (QTY < 3) ===");
+                Library.analyzeStock();
+
+            } else if (choice == 7) {
+
                 System.out.println("\nExiting program...");
 
             } else {
 
-                System.out.println("\nInvalid choice. Please enter 1, 2, 3, 4, 5, or 6.");
+                System.out.println("\nInvalid choice. Please enter 1, 2, 3, 4, 5, 6, or 7.");
             }
         }
 
@@ -137,18 +144,18 @@ public class BookStore {
             new Book("The Book Thief", "Markus Zusak", "Historical", "978-0-375-84220-7", 9),
 
             new Book("Twilight", "Stephenie Meyer", "Romance", "978-0-316-01584-6", 14),
-            new Book("New Moon", "Stephenie Meyer", "Romance", "978-0-316-16039-3", 13),
+            new Book("New Moon", "Stephenie Meyer", "Romance", "978-0-316-16039-3", 1),
             new Book("Eclipse", "Stephenie Meyer", "Romance", "978-0-316-16041-6", 12),
 
             new Book("The Girl with the Dragon Tattoo", "Stieg Larsson", "Thriller", "978-0-307-45454-4", 6),
             new Book("Gone Girl", "Gillian Flynn", "Thriller", "978-0-307-58836-2", 8),
 
             new Book("The Sun Also Rises", "Ernest Hemingway", "Classic", "978-0-7432-9733-2", 4),
-            new Book("Don Quixote", "Miguel de Cervantes", "Classic", "978-0-06-093434-7", 5),
+            new Book("Don Quixote", "Miguel de Cervantes", "Classic", "978-0-06-093434-7", 2),
             new Book("War and Peace", "Leo Tolstoy", "Classic", "978-0-14-303999-0", 3),
 
             new Book("The Little Prince", "Antoine de Saint-Exupéry", "Children", "978-0-15-601219-5", 10),
-            new Book("Charlotte's Web", "E.B. White", "Children", "978-0-06-440055-8", 9),
+            new Book("Charlotte's Web", "E.B. White", "Children", "978-0-06-440055-8", 1),
             new Book("Matilda", "Roald Dahl", "Children", "978-0-14-241037-0", 7),
 
             new Book("The Kite Runner", "Khaled Hosseini", "Drama", "978-1-59448-000-3", 11),

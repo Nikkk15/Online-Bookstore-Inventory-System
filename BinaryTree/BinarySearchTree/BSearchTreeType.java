@@ -172,6 +172,15 @@ public class BSearchTreeType extends BinaryTreeType {
     }
     public void restock() {
         restockTree(root);
-        System.out.println("All books have been restock")
+        System.out.println("All books have been restocked to quantity = 3");
     }
-}
+    private void restockTree(NodeType p) {
+        if (p == null)
+            return;
+            
+        p.info.setQuantity(3);
+
+        restockTree(p.left);
+        restockTree(p.right);
+    }
+    }
