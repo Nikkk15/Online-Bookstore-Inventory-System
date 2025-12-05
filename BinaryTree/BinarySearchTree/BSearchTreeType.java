@@ -83,6 +83,24 @@ public class BSearchTreeType extends BinaryTreeType {
         return p;
     }
 
+    public void analyzeStock(){
+        analyzeStockHelper(root);
+    }
+
+    private void analyzeStockHelper(NodeType p){
+        if (p != null){
+            analyzeStockHelper(p.left);
+
+            if (p.info.getQuantity() < 3) {
+                System.out.println(
+                    p.info.getTitle() + " | ISBN: " + p.info.getIsbn() + " | Qty: " + p.info.getQuantity()
+                );
+            }
+            
+            analyzeStockHelper(p.right);
+        }
+    }
+
     public void swapSubTrees(){
         swaptrees(root);
     }
@@ -152,5 +170,8 @@ public class BSearchTreeType extends BinaryTreeType {
             printSalesInOrder(p.right);
         }
     }
-    
+    public void restock() {
+        restockTree(root);
+        System.out.println("All books have been restock")
+    }
 }
