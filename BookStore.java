@@ -12,7 +12,7 @@ public class BookStore {
 
         int choice = 0;
 
-        while (choice != 8) {
+        while (choice != 10) {
 
             System.out.println("\n===== BOOKSTORE MENU =====");
             System.out.println("1. Add Book");
@@ -21,12 +21,14 @@ public class BookStore {
             System.out.println("4. Analyze Sales");
             System.out.println("5. Delete Book by ISBN");
             System.out.println("6. Analyze Stock (Low Quantity)");
-            System.out.println("7. Restock All Books to Quantity 3");
-            System.out.println("8. Exit");
+            System.out.println("7. Restock All Books (Qty = 3)");
+            System.out.println("8. Update Book Quantity (Manual Adjust)");
+            System.out.println("9. Buy Book");
+            System.out.println("10. Exit");
             System.out.print("Enter your choice (Example: 1): ");
 
             choice = input.nextInt();
-            input.nextLine();
+            input.nextLine(); 
 
             if (choice == 1) {
 
@@ -87,23 +89,47 @@ public class BookStore {
 
             } else if (choice == 7) {
 
-                System.out.println("\n=== RESTOCKING ALL BOOKS TO QUANTITY = 3 ===");
+                System.out.println("\n=== RESTOCKING ALL BOOKS ===");
                 Library.restock();
-                System.out.println("Restock complete!");
+                System.out.println("All books have been restocked to quantity = 3.");
 
             } else if (choice == 8) {
+
+                System.out.println("\n=== UPDATE BOOK QUANTITY ===");
+                System.out.print("Enter ISBN: ");
+                String isbn = input.nextLine();
+
+                System.out.print("Enter quantity change (negative = reduce stock, positive = add stock): ");
+                int changeAmount = input.nextInt();
+                input.nextLine();
+
+                Library.updateQuantity(isbn, changeAmount);
+
+            } else if (choice == 9) {
+
+                System.out.println("\n=== BUY BOOK ===");
+                System.out.print("Enter ISBN: ");
+                String isbn = input.nextLine();
+
+                System.out.print("Enter quantity to buy: ");
+                int amount = input.nextInt();
+                input.nextLine();
+
+                Library.buyBook(isbn, amount);
+
+            } else if (choice == 10) {
 
                 System.out.println("\nExiting program...");
 
             } else {
 
-                System.out.println("\nInvalid choice. Please enter 1–8.");
+                System.out.println("\nInvalid choice. Please enter a number between 1 and 10.");
             }
         }
 
         input.close();
     }
-
+    
     public static void loadSampleBooks(BSearchTreeType Library) {
 
         Book[] sampleBooks = {

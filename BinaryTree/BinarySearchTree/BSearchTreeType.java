@@ -181,5 +181,84 @@ public class BSearchTreeType extends BinaryTreeType {
 
         restockTree(p.left);
         restockTree(p.right);
+
     }
+    
+    public void updateQuantity(String isbn, int changeAmount) {
+        NodeType current = root;
+
+        while (current != null) {
+            String currentIsbn = current.info.getIsbn();
+
+            if (isbn.equals(currentIsbn)) {
+                int newQty = current.info.getQuantity() + changeAmount;
+
+                if (newQty < 0) {
+                    newQty = 0;
+                }
+
+                current.info.setQuantity(newQty);
+
+                System.out.println("\nInventory updated!");
+            System.out.println("Title: " + current.info.getTitle());
+            System.out.println("New Quantity: " + newQty);
+
+            return;
+        }
+
+        if (isbn.compareTo(currentIsbn) < 0)
+            current = current.left;
+        else
+            current = current.right;
+        }
+
+        System.out.println("Book not found — unable to update quantity.");
     }
+
+    public void buyBook(String isbn, int amount) {
+
+        if (amount <= 0) {
+            System.out.println("Purchase amount must be positive.");
+            return;
+        }
+
+        NodeType current = root;
+
+        while (current != null) {
+
+            String currentIsbn = current.info.getIsbn();
+
+            if (isbn.equals(currentIsbn)) {
+
+                int available = current.info.getQuantity();
+
+                if (available < amount) {
+                    System.out.println("Not enough stock available.");
+                    System.out.println("Available: " + available);
+                    return;
+                }
+
+                current.info.setQuantity(available - amount);
+
+                for (int i = 0; i < amount; i++) {
+                    current.info.addSale();
+                }
+
+                System.out.println("\nPurchase successful!");
+                System.out.println("Title: " + current.info.getTitle());
+                System.out.println("Purchased: " + amount);
+                System.out.println("Remaining stock: " + current.info.getQuantity());
+
+                return;
+            }
+
+            if (isbn.compareTo(currentIsbn) < 0)
+                current = current.left;
+            else
+                current = current.right;
+        }
+
+        System.out.println("Book not found.");
+    }
+
+}
