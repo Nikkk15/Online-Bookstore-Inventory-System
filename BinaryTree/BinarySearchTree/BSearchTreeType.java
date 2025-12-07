@@ -130,33 +130,95 @@ public class BSearchTreeType extends BinaryTreeType {
     }
 
     public void getPopularGenres() {
-        
-    }
 
-    private void popularGenres(NodeType p){
-
+        // Count how many total book nodes are in the BST
         int totalNodes = treeNodeCount();
 
+        // If there are no books, there is nothing to analyze
         if (totalNodes == 0) {
-            System.out.println("No books in the inventory.");
+            System.out.println("No books in inventory.");
             return;
         }
 
-        String[] allGenres = new String[totalNodes];
-        int[] index = new int[1];   // index[0] will track how many we filled
+        // Array to store unique genre names
+        String[] genres = new String[totalNodes];
 
-        fillGenresArray(root, allGenres, index);
+        // Parallel array to store total sales for each genre
+        int[] salesCount = new int[totalNodes];
+
+        // index[0] tracks how many unique genres we have stored
+        int[] index = new int[1];
+
+        // Traverse the entire BST and fill the genre and sales arrays
+        collectGenreSales(root, genres, salesCount, index);
+
+        // Number of unique genres found
         int n = index[0];
-        
+
+        // Sort genres by total sales in descending order
+        // This uses selection sort and swaps BOTH arrays together
+        for (int i = 0; i < n - 1; i++) {
+            int maxIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (salesCount[j] > salesCount[maxIndex]) {
+                    maxIndex = j;
+                }
+            }
+
+            // Swap sales counts
+            int tempSales = salesCount[i];
+            salesCount[i] = salesCount[maxIndex];
+            salesCount[maxIndex] = tempSales;
+
+            // Swap corresponding genres so arrays stay aligned
+            String tempGenre = genres[i];
+            genres[i] = genres[maxIndex];
+            genres[maxIndex] = tempGenre;
+        }
+
+        // Print ALL genres from most popular to least popular
+        System.out.println("\n=== GENRES RANKED BY POPULARITY (TOTAL SALES) ===");
+        for (int i = 0; i < n; i++) {
+            System.out.println((i + 1) + ". " + genres[i] + " — " + salesCount[i] + " sales");
+        }
     }
 
-    private void fillGenresArray(NodeType node, String[] allGenres, int[] index) {
-    if (node == null) 
-        return;
+    private void collectGenreSales(NodeType p, String[] genres, int[] salesCount, int[] index) {
 
-    fillGenresArray(node.left, allGenres, index);
-    allGenres[index[0]++] = node.info.getGenre();
-    fillGenresArray(node.right, allGenres, index);
+        // Base case: stop recursion when node is null
+        if (p == null)
+            return;
+
+        // Visit left subtree first (in-order traversal)
+        collectGenreSales(p.left, genres, salesCount, index);
+
+        // Get current book’s genre and sales
+        String genre = p.info.getGenre();
+        int sales = p.info.getSales();
+
+        // Check if this genre already exists in the genres array
+        int foundIndex = -1;
+        for (int i = 0; i < index[0]; i++) {
+            if (genres[i].equals(genre)) {
+                foundIndex = i;
+                break;
+            }
+        }
+
+        // If genre is new, add it and initialize its sales count
+        if (foundIndex == -1) {
+            genres[index[0]] = genre;
+            salesCount[index[0]] = sales;
+            index[0]++;
+        } 
+        // If genre already exists, add sales to its total
+        else {
+            salesCount[foundIndex] += sales;
+        }
+
+        // Visit right subtree
+        collectGenreSales(p.right, genres, salesCount, index);
     }
 
     public void printAllSales() {
@@ -260,5 +322,7 @@ public class BSearchTreeType extends BinaryTreeType {
 
         System.out.println("Book not found.");
     }
+
+
 
 }

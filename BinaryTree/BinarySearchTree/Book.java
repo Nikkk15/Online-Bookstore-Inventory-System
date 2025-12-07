@@ -28,6 +28,9 @@ public class Book{
         this.quantity = quantity;
     }
 
+    public void setSales(int amount) {
+        sales = amount;
+    }
     public void addSale() {
         sales++;
     }

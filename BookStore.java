@@ -12,7 +12,7 @@ public class BookStore {
 
         int choice = 0;
 
-        while (choice != 10) {
+        while (choice != 11) {
 
             System.out.println("\n===== BOOKSTORE MENU =====");
             System.out.println("1. Add Book");
@@ -24,11 +24,12 @@ public class BookStore {
             System.out.println("7. Restock All Books (Qty = 3)");
             System.out.println("8. Update Book Quantity (Manual Adjust)");
             System.out.println("9. Buy Book");
-            System.out.println("10. Exit");
+            System.out.println("10. Show Popular Genres (Ranked by Sales)");
+            System.out.println("11. Exit");
             System.out.print("Enter your choice (Example: 1): ");
 
             choice = input.nextInt();
-            input.nextLine(); 
+            input.nextLine();
 
             if (choice == 1) {
 
@@ -119,11 +120,16 @@ public class BookStore {
 
             } else if (choice == 10) {
 
+                System.out.println("\n=== POPULAR GENRES (RANKED BY SALES) ===");
+                Library.getPopularGenres();
+
+            } else if (choice == 11) {
+
                 System.out.println("\nExiting program...");
 
             } else {
 
-                System.out.println("\nInvalid choice. Please enter a number between 1 and 10.");
+                System.out.println("\nInvalid choice. Please enter a number between 1 and 11.");
             }
         }
 
@@ -194,6 +200,66 @@ public class BookStore {
             new Book("The Kite Runner", "Khaled Hosseini", "Drama", "978-1-59448-000-3", 11),
             new Book("A Thousand Splendid Suns", "Khaled Hosseini", "Drama", "978-1-59448-385-1", 8)
         };
+
+        sampleBooks[0].setSales(42);
+        sampleBooks[1].setSales(55);
+        sampleBooks[2].setSales(38);
+        sampleBooks[3].setSales(27);
+        sampleBooks[4].setSales(33);
+        sampleBooks[5].setSales(61);
+        sampleBooks[6].setSales(74);
+        sampleBooks[7].setSales(19);
+        sampleBooks[8].setSales(8);
+        sampleBooks[9].setSales(22);
+
+        sampleBooks[10].setSales(80);
+        sampleBooks[11].setSales(72);
+        sampleBooks[12].setSales(65);
+
+        sampleBooks[13].setSales(120);
+        sampleBooks[14].setSales(110);
+        sampleBooks[15].setSales(105);
+        sampleBooks[16].setSales(98);
+
+        sampleBooks[17].setSales(60);
+        sampleBooks[18].setSales(47);
+
+        sampleBooks[19].setSales(58);
+        sampleBooks[20].setSales(50);
+        sampleBooks[21].setSales(44);
+
+        sampleBooks[22].setSales(36);
+        sampleBooks[23].setSales(29);
+        sampleBooks[24].setSales(41);
+
+        sampleBooks[25].setSales(34);
+        sampleBooks[26].setSales(31);
+        sampleBooks[27].setSales(18);
+
+        sampleBooks[28].setSales(15);
+        sampleBooks[29].setSales(26);
+        sampleBooks[30].setSales(39);
+
+        sampleBooks[31].setSales(32);
+        sampleBooks[32].setSales(37);
+
+        sampleBooks[33].setSales(70);
+        sampleBooks[34].setSales(63);
+        sampleBooks[35].setSales(59);
+
+        sampleBooks[36].setSales(40);
+        sampleBooks[37].setSales(52);
+
+        sampleBooks[38].setSales(21);
+        sampleBooks[39].setSales(17);
+        sampleBooks[40].setSales(13);
+
+        sampleBooks[41].setSales(48);
+        sampleBooks[42].setSales(35);
+        sampleBooks[43].setSales(30);
+
+        sampleBooks[44].setSales(53);
+        sampleBooks[45].setSales(46);
 
         for (Book b : sampleBooks) {
             Library.insert(b);
