@@ -10,13 +10,13 @@ public class BookStore {
 
         loadSampleBooks(Library);
 
-        int choice = 0;
+        int choice = -1;
 
         while (choice != 11) {
 
             System.out.println("\n===== BOOKSTORE MENU =====");
             System.out.println("1. Add Book");
-            System.out.println("2. Search Book by ISBN");
+            System.out.println("2. Search Books");
             System.out.println("3. Display All Books");
             System.out.println("4. Analyze Sales");
             System.out.println("5. Delete Book by ISBN");
@@ -26,30 +26,41 @@ public class BookStore {
             System.out.println("9. Buy Book");
             System.out.println("10. Show Popular Genres (Ranked by Sales)");
             System.out.println("11. Exit");
-            System.out.print("Enter your choice (Example: 1): ");
 
-            choice = input.nextInt();
-            input.nextLine();
+            // validate main menu choice: must be between 1 and 11
+            while (true) {
+                choice = readInt(input, "Enter your choice (Example: 1): ");
+                if (choice >= 1 && choice <= 11) {
+                    break;
+                }
+                System.out.println("Please enter a number between 1 and 11.");
+            }
 
             if (choice == 1) {
 
                 System.out.println("\n=== ADDING A BOOK ===");
 
-                System.out.print("Enter Title (Example: Harry Potter): ");
-                String title = input.nextLine();
+                String title = readNonEmptyString(input,
+                        "Enter Title (Example: Harry Potter): ");
 
-                System.out.print("Enter Author (Example: J.K. Rowling): ");
-                String author = input.nextLine();
+                String author = readNonEmptyString(input,
+                        "Enter Author (Example: J.K. Rowling): ");
 
-                System.out.print("Enter Genre (Example: Fantasy): ");
-                String genre = input.nextLine();
+                String genre = readNonEmptyString(input,
+                        "Enter Genre (Example: Fantasy): ");
 
-                System.out.print("Enter ISBN (Example: 978-3-16-148410-0): ");
-                String isbn = input.nextLine();
+                String isbn = readNonEmptyString(input,
+                        "Enter ISBN (Example: 978-3-16-148410-0): ");
 
-                System.out.print("Enter Quantity (Example: 5): ");
-                int qty = input.nextInt();
-                input.nextLine();
+                // quantity must be >= 0
+                int qty;
+                while (true) {
+                    qty = readInt(input, "Enter Quantity (Example: 5): ");
+                    if (qty >= 0) {
+                        break;
+                    }
+                    System.out.println("Value cannot be negative. Please try again.");
+                }
 
                 Book newBook = new Book(title, author, genre, isbn, qty);
                 Library.insert(newBook);
@@ -58,11 +69,39 @@ public class BookStore {
 
             } else if (choice == 2) {
 
-                System.out.println("\n=== SEARCH BY ISBN ===");
-                System.out.print("Enter ISBN (Example: 978-3-16-148410-0): ");
-                String searchIsbn = input.nextLine();
+                System.out.println("\n=== SEARCH MENU ===");
+                System.out.println("1. Search by ISBN");
+                System.out.println("2. Search by Title");
+                System.out.println("3. Search by Author");
+                System.out.println("4. Search by Genre");
 
-                System.out.println(Library.search(searchIsbn));
+                int searchChoice;
+
+                // validate search menu choice: must be between 1 and 4
+                while (true) {
+                    searchChoice = readInt(input, "Enter your choice: ");
+                    if (searchChoice >= 1 && searchChoice <= 4) {
+                        break;
+                    }
+                    System.out.println("Please enter a number between 1 and 4.");
+                }
+
+                if (searchChoice == 1) {
+                    String isbn = readNonEmptyString(input, "Enter ISBN: ");
+                    System.out.println(Library.searchByIsbn(isbn));
+
+                } else if (searchChoice == 2) {
+                    String title = readNonEmptyString(input, "Enter Title: ");
+                    Library.searchByTitle(title);
+
+                } else if (searchChoice == 3) {
+                    String author = readNonEmptyString(input, "Enter Author: ");
+                    Library.searchByAuthor(author);
+
+                } else if (searchChoice == 4) {
+                    String genre = readNonEmptyString(input, "Enter Genre: ");
+                    Library.searchByGenre(genre);
+                }
 
             } else if (choice == 3) {
 
@@ -77,11 +116,12 @@ public class BookStore {
             } else if (choice == 5) {
 
                 System.out.println("\n=== DELETE BOOK BY ISBN ===");
-                System.out.print("Enter ISBN of the book to delete: ");
-                String deleteIsbn = input.nextLine();
+                String deleteIsbn = readNonEmptyString(input,
+                        "Enter ISBN of the book to delete: ");
 
                 Library.deleteNode(deleteIsbn);
-                System.out.println("Delete operation requested. If the ISBN was found, the book was removed.");
+                System.out.println(
+                        "Delete operation requested. If the ISBN was found, the book was removed.");
 
             } else if (choice == 6) {
 
@@ -97,24 +137,27 @@ public class BookStore {
             } else if (choice == 8) {
 
                 System.out.println("\n=== UPDATE BOOK QUANTITY ===");
-                System.out.print("Enter ISBN: ");
-                String isbn = input.nextLine();
+                String isbn = readNonEmptyString(input, "Enter ISBN: ");
 
-                System.out.print("Enter quantity change (negative = reduce stock, positive = add stock): ");
-                int changeAmount = input.nextInt();
-                input.nextLine();
+                int changeAmount = readInt(input,
+                        "Enter quantity change (negative = reduce stock, positive = add stock): ");
 
                 Library.updateQuantity(isbn, changeAmount);
 
             } else if (choice == 9) {
 
                 System.out.println("\n=== BUY BOOK ===");
-                System.out.print("Enter ISBN: ");
-                String isbn = input.nextLine();
+                String isbn = readNonEmptyString(input, "Enter ISBN: ");
 
-                System.out.print("Enter quantity to buy: ");
-                int amount = input.nextInt();
-                input.nextLine();
+                // amount must be > 0
+                int amount;
+                while (true) {
+                    amount = readInt(input, "Enter quantity to buy: ");
+                    if (amount > 0) {
+                        break;
+                    }
+                    System.out.println("Value must be greater than 0. Please try again.");
+                }
 
                 Library.buyBook(isbn, amount);
 
@@ -126,14 +169,35 @@ public class BookStore {
             } else if (choice == 11) {
 
                 System.out.println("\nExiting program...");
-
-            } else {
-
-                System.out.println("\nInvalid choice. Please enter a number between 1 and 11.");
             }
         }
 
         input.close();
+    }
+
+    // Read a non-empty line of text
+    private static String readNonEmptyString(Scanner input, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String line = input.nextLine().trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+            System.out.println("Input cannot be empty. Please try again.");
+        }
+    }
+
+    // Read any int (loops until user types a valid integer)
+    private static int readInt(Scanner input, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String line = input.nextLine().trim();
+            try {
+                return Integer.parseInt(line);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Please enter an integer.");
+            }
+        }
     }
     
     public static void loadSampleBooks(BSearchTreeType Library) {

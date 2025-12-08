@@ -16,8 +16,103 @@ public class BSearchTreeType extends BinaryTreeType {
         return "Book not found.";
     }
 
-    public String searchByTitle(String searchTitle){
-        return "";
+    public void searchByTitle(String title) {
+        System.out.println("\nSearch results for title: " + title);
+
+        boolean found = searchByTitleHelper(root, title.toLowerCase());
+
+        if (!found) {
+            System.out.println("No books found with that title.");
+        }
+    }
+
+    private boolean searchByTitleHelper(NodeType p, String titleLower) {
+        if (p == null)
+            return false;
+
+        boolean found = false;
+
+        // Search left subtree
+        if (searchByTitleHelper(p.left, titleLower)) {
+            found = true;
+        }
+
+        // Check current node
+        if (p.info.getTitle().toLowerCase().equals(titleLower)) {
+            System.out.println(p.info.toString());
+            found = true;
+        }
+
+        // Search right subtree
+        if (searchByTitleHelper(p.right, titleLower)) {
+            found = true;
+        }
+
+        return found;
+    }
+
+    public void searchByAuthor(String author) {
+        System.out.println("\nSearch results for author: " + author);
+
+        boolean found = searchByAuthorHelper(root, author.toLowerCase());
+
+        if (!found) {
+            System.out.println("No books found by that author.");
+        }
+    }
+
+    private boolean searchByAuthorHelper(NodeType p, String authorLower) {
+        if (p == null)
+            return false;
+
+        boolean found = false;
+
+        if (searchByAuthorHelper(p.left, authorLower)) {
+            found = true;
+        }
+
+        if (p.info.getAuthor().toLowerCase().equals(authorLower)) {
+            System.out.println(p.info.toString());
+            found = true;
+        }
+
+        if (searchByAuthorHelper(p.right, authorLower)) {
+            found = true;
+        }
+
+        return found;
+    }
+
+    public void searchByGenre(String genre) {
+        System.out.println("\nSearch results for genre: " + genre);
+
+        boolean found = searchByGenreHelper(root, genre.toLowerCase());
+
+        if (!found) {
+            System.out.println("No books found in that genre.");
+        }
+    }
+
+    private boolean searchByGenreHelper(NodeType p, String genreLower) {
+        if (p == null)
+            return false;
+
+        boolean found = false;
+
+        if (searchByGenreHelper(p.left, genreLower)) {
+            found = true;
+        }
+
+        if (p.info.getGenre().toLowerCase().equals(genreLower)) {
+            System.out.println(p.info.toString());
+            found = true;
+        }
+
+        if (searchByGenreHelper(p.right, genreLower)) {
+            found = true;
+        }
+
+        return found;
     }
 
     
