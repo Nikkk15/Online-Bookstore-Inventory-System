@@ -2,7 +2,7 @@ package BinaryTree.BinarySearchTree;
 
 public class BSearchTreeType extends BinaryTreeType {
 
-    public String search(String searchIsbn) {
+    public String searchByIsbn(String searchIsbn) {
         NodeType current = root;
 
         while (current != null) {
@@ -14,6 +14,10 @@ public class BSearchTreeType extends BinaryTreeType {
                 current = current.right;
         }
         return "Book not found.";
+    }
+
+    public String searchByTitle(String searchTitle){
+        return "";
     }
 
     
